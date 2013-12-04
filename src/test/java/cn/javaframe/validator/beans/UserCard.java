@@ -1,5 +1,6 @@
 package cn.javaframe.validator.beans;
 
+import cn.javaframe.validator.EnumConstants.LogicType;
 import cn.javaframe.validator.EnumConstants.NextStepType;
 import cn.javaframe.validator.EnumConstants.RuleType;
 import cn.javaframe.validator.annotation.ConditionItem;
@@ -19,8 +20,8 @@ public class UserCard {
 			},
 			logicList = {
 					@LogicItem(conclusion = "A",successNextStep = NextStepType.returnSuccess),
-					@LogicItem(condition = "B",conclusion = "C",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail),
-					@LogicItem(condition = "B",conclusion = "D",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
+					@LogicItem(condition = "B",conclusion = "C",type =LogicType.deduce ,successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail),
+					@LogicItem(condition = "B",conclusion = "D",type =LogicType.deduce ,successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
 			},
 			text = "用户身份账号")
 	private long cardID;
