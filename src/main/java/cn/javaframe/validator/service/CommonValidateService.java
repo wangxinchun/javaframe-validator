@@ -2,6 +2,7 @@ package cn.javaframe.validator.service;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import cn.javaframe.validator.annotation.RuleItem;
 import cn.javaframe.validator.annotation.Rules;
@@ -16,6 +17,8 @@ import cn.javaframe.validator.util.ClassHelper;
  * 
  */
 public class CommonValidateService extends AbstractValidateService {
+	final private static ConcurrentHashMap<String, Map<Field, Rules>> cacheMap = new ConcurrentHashMap<String, Map<Field, Rules>>();
+	
 	/*
 	 * (non-Javadoc)m
 	 * 

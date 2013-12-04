@@ -10,8 +10,8 @@ import cn.javaframe.validator.exception.ValidatorConfigException;
 import cn.javaframe.validator.logic.LogicGroup;
 
 /**
- * 原子校验组
- * 一个原子校验组拥有一个校验器
+ * 推导原子校验组
+ * 一个推导原子校验组拥有一个校验器
  * @author wangxinchun1988@163.com
  * @date 2013-12-1下午1:04:48
  */
@@ -39,7 +39,7 @@ public class DeduceAtomicLogicGroup implements LogicGroup {
 				logicResult = LogicValidateResult.errorInstance(logic.getTip()); //TODO
 				logicResult.setFailNextStep(logic.getFailNextStep());
 				if(logic.getTip()== null || logic.getTip().isEmpty()){
-					logicResult.setMessage(conditionResult.getMessage());
+					logicResult.setMessage(conclusionResult.getMessage());
 				}else{
 					logicResult.setMessage(logic.getTip());
 				}

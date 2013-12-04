@@ -1,6 +1,5 @@
 package cn.javaframe.validator.service;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,12 +37,12 @@ import cn.javaframe.validator.validators.ValidatorFactory;
  * 
  */
 public abstract class AbstractValidateService implements IValidateService {
-	final protected static ConcurrentHashMap<String, Map<Field, Rules>> cacheMap = new ConcurrentHashMap<String, Map<Field, Rules>>();
-	final private static ConcurrentHashMap<Rules,Map<String,ValidatorVO> > rulesCacheMap = new ConcurrentHashMap<Rules, Map<String,ValidatorVO>>();
-    
-	
-	final private static ConcurrentHashMap<Rules,LogicGroup > rulesLogicGroupCacheMap = new ConcurrentHashMap<Rules, LogicGroup>();
 	protected static final Logger logger= LoggerFactory.getLogger(AbstractValidateService.class);
+	
+	/**持有Rules到其上所有校验器的缓存。结构：  Rules ->(id,ValidatorVO)的映射*/
+	final private static ConcurrentHashMap<Rules,Map<String,ValidatorVO> > rulesCacheMap = new ConcurrentHashMap<Rules, Map<String,ValidatorVO>>();
+	/** 持有Rules上逻辑校验逻辑的缓存。结构：Rules->LogicGroup 的映射*/
+	final private static ConcurrentHashMap<Rules,LogicGroup > rulesLogicGroupCacheMap = new ConcurrentHashMap<Rules, LogicGroup>();
 
 	/**
 	 * 规则处理集合接口
@@ -56,24 +55,18 @@ public abstract class AbstractValidateService implements IValidateService {
 	final protected ValidateResult processRules(Rules rules, String name, Map<String, String> params) {
 		//必选验证逻辑项
 		LogicItem[] logicArr = rules.logicList();
-		
 		if(logicArr == null || logicArr.length <=0 ){
 			return ValidateResult.SUCCESS;
 		}
 		LogicGroup execute = rulesLogicGroupCacheMap.get(rules);
 		if(execute == null){
 			for(LogicItem item : logicArr) {
-				String conclusion = item.conclusion();
-				if(item.type() == LogicType.simple){
-					//无推导逻辑
-					Map<String,ValidatorVO> ruleMap = rulesCacheMap.get(rules);
-					if(ruleMap == null){
-						ruleMap = initValidatorMapByRules(rules,name);
-						rulesCacheMap.putIfAbsent(rules, ruleMap);
+				if(item.type() == LogicType.simple){ //如果是简单逻辑，只有结论没有条件
+					String conclusion = item.conclusion();//逻辑校验规则的结论表达式
+					if(conclusion == null || conclusion.trim().isEmpty()){
+						throw new LogicConfigException("没有配置conclusion逻辑" + item);
 					}
-					ConditionGroup logicGroup = ConditionGroupResolver.resolve(conclusion,ruleMap);
-					LogicVO logic = new LogicVO();
-					logic.setConclusionGroup(logicGroup);
+					LogicVO logic = initLogicVO(rules,item ,name);
 					LogicGroup atomicLogicGroup = new AtomicLogicGroup(logic);
 					if(execute == null){
 						execute = atomicLogicGroup;
@@ -81,24 +74,11 @@ public abstract class AbstractValidateService implements IValidateService {
 						execute = new AndLogicGroupAdapter(Arrays.asList(execute, atomicLogicGroup));
 					}
 				}else {//推导验证逻辑项
-					//有推导逻辑
+					String conclusion = item.conclusion();//逻辑校验规则的结论表达式
 					String condition = item.condition();
 					if(conclusion != null && !conclusion.trim().isEmpty() && condition != null && !condition.trim().isEmpty()){
 						/* 没有缓存的逻辑组*/
-						Map<String, ValidatorVO> ruleMap = rulesCacheMap.get(rules);
-						if (ruleMap == null) {
-							ruleMap = initValidatorMapByRules(rules, name);
-							rulesCacheMap.putIfAbsent(rules, ruleMap);
-						}
-						ConditionGroup conditionGroup = ConditionGroupResolver.resolve(condition,ruleMap);
-						ConditionGroup conclusionGroup = ConditionGroupResolver.resolve(conclusion,ruleMap);
-						
-						LogicVO logic = new LogicVO();
-						logic.setConclusionGroup(conclusionGroup);
-						logic.setConditionGroup(conditionGroup);
-						logic.setFailNextStep(item.failNextStep());
-						logic.setSuccessNextStep(item.successNextStep());
-						logic.setConditionFailNextStep(item.conditionFailNextStep());
+						LogicVO logic = initLogicVO(rules,item,name);
 						LogicGroup deduceLogic = new DeduceAtomicLogicGroup(logic);
 						if(execute == null) {
 							execute = deduceLogic;
@@ -108,8 +88,6 @@ public abstract class AbstractValidateService implements IValidateService {
 					} else{
 						throw new LogicConfigException(item+ " 推导逻辑配置错误 ");
 					}
-					
-					
 				}
 			}
 		}
@@ -121,8 +99,46 @@ public abstract class AbstractValidateService implements IValidateService {
 		}
 	}
 	
+	/**
+	 * 初始化逻辑VO
+	 * @param item
+	 * @param validatorMap
+	 * @return
+	 */
+	private LogicVO initLogicVO(Rules rules,LogicItem item,String name) {
+		LogicVO logic = new LogicVO();
+		Map<String, ValidatorVO> validatorMap = rulesCacheMap.get(rules);
+		if (validatorMap == null) {
+			validatorMap = resolveValidatorMapByRules(rules, name);
+			rulesCacheMap.putIfAbsent(rules, validatorMap);
+		}
+		String conclusion = item.conclusion();
+		if(conclusion != null && !conclusion.trim().isEmpty()){
+			ConditionGroup conclusionGroup = ConditionGroupResolver.resolve(conclusion,validatorMap);
+			logic.setConclusionGroup(conclusionGroup);
+		}
+		String condition = item.condition();
+		if(condition != null && !condition.trim().isEmpty()){
+			ConditionGroup conditionGroup = ConditionGroupResolver.resolve(condition,validatorMap);
+			logic.setConditionGroup(conditionGroup);
+		}
+		if(item.tipType() == TipType.just_rule){
+			logic.setTip(item.tip());
+		}
+		
+		logic.setFailNextStep(item.failNextStep());
+		logic.setSuccessNextStep(item.successNextStep());
+		logic.setConditionFailNextStep(item.conditionFailNextStep());
+		return logic;
+	}
 	
-	private Map<String,ValidatorVO> initValidatorMapByRules(Rules rules ,String name){
+	/**
+	 * 解析rules上所有的校验器
+	 * @param rules
+	 * @param name
+	 * @return
+	 */
+	private Map<String,ValidatorVO> resolveValidatorMapByRules(Rules rules ,String name){
 		Map<String,ValidatorVO> ruleMap = new HashMap<String,ValidatorVO>();
 		for(RuleItem item : rules.ruleList()){
 			ValidatorVO vo = new ValidatorVO();
@@ -162,7 +178,11 @@ public abstract class AbstractValidateService implements IValidateService {
 			if(validator == null){
 				throw new IllegalStateException(item + "没有注册有效的验证器");
 			}
-			vo.setProperty(item.dependProperty());
+			if(item.dependProperty()== null || item.dependProperty().isEmpty()){
+				vo.setProperty(name);
+			}else {
+				vo.setProperty(item.dependProperty());
+			}
 			vo.setValidator(validator);
 			vo.setRule(item.value());
 			ruleMap.put(item.id(), vo);

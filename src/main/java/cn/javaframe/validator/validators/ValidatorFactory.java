@@ -53,8 +53,8 @@ public class ValidatorFactory {
     
     static {
     	/** 通用验证器的注册*/
-		commonValidatorCacheMap.put(RuleType.empty, notEmptyValidator);
-		commonValidatorCacheMap.put(RuleType.not_empty, emptyValidator);
+		commonValidatorCacheMap.put(RuleType.empty, emptyValidator);
+		commonValidatorCacheMap.put(RuleType.not_empty, notEmptyValidator);
 		commonValidatorCacheMap.put(RuleType.string_regex, stringRegxValidator);
 		
 		commonValidatorCacheMap.put(RuleType.number_format, numberFormatValidator);

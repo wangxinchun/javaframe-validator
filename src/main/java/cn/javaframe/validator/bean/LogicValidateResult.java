@@ -30,7 +30,7 @@ public class LogicValidateResult {
 	}
 	
 	public static final LogicValidateResult successInstance(){
-		return new LogicValidateResult(false,null);
+		return new LogicValidateResult(true,null);
 	}
 	
 	public LogicValidateResult(boolean success, String message) {

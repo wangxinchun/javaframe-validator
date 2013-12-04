@@ -32,13 +32,13 @@ public class ConditionGroupResolver {
 	 * @param ruleMap 校验器id->ValidatorVO
 	 * @return
 	 */
-	public static ConditionGroup resolve(String logic, Map<String, ValidatorVO> ruleMap) {
+	public static ConditionGroup resolve(String logic, Map<String, ValidatorVO> validatorMap) {
 		logic = trimLogic(logic);
 		if (logic == null || logic.trim().isEmpty()) {
 			return null;
 		}
 		if (!logic.contains(ANDAND) && !logic.contains(OROR)) {
-			ValidatorVO logicVO = ruleMap.get(logic);
+			ValidatorVO logicVO = validatorMap.get(logic);
 			if (logicVO == null) {
 				throw new LogicConfigException(logic + "没有对应的RuleItem");
 			}
@@ -85,7 +85,7 @@ public class ConditionGroupResolver {
 		List<ConditionGroup> listGroup = new ArrayList<ConditionGroup>();
 		if (subLogicList.size() > 0) {
 			for (String item : subLogicList) {
-				ConditionGroup logicGroup = resolve(item, ruleMap);
+				ConditionGroup logicGroup = resolve(item, validatorMap);
 				if (logicGroup != null) {
 					listGroup.add(logicGroup);
 				}
