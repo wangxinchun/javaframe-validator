@@ -20,7 +20,6 @@ public class StringNotEmptyValidator extends AbstractValidator {
 		if(isNotEmpty(params.get(validator.getProperty()))){
 			return ValidateResult.SUCCESS;
 		}
-		//logWarn(null, name,params.get(name),rule.name(),rule.value(),this.getClass().getName());
 		return ValidateResult.errorInstance(validator.getTip());
 	}
     
