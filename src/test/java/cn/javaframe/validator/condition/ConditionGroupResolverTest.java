@@ -1,4 +1,4 @@
-package cn.javaframe.validator.util;
+package cn.javaframe.validator.condition;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,13 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import cn.javaframe.validator.bean.ValidatorVO;
-import cn.javaframe.validator.condition.ConditionGroup;
-import cn.javaframe.validator.condition.ConditionGroupResolver;
 
-/**
- * @author wangxinchun
- */
-public class LogicGroupResolverTest {
+public class ConditionGroupResolverTest {
 
 	@Test
 	public void testTrimLogic() {
@@ -29,14 +24,12 @@ public class LogicGroupResolverTest {
 	@Test
 	public void testTrimLogic1() {
 		String result = ConditionGroupResolver.trimLogic("((a||b))");
-		System.out.println(result);
 		Assert.assertTrue(result.equals("a||b"));
 	}
 	
 	@Test
 	public void testTrimLogic2() {
 		String result = ConditionGroupResolver.trimLogic("a||b");
-		System.out.println(result);
 		Assert.assertTrue(result.equals("a||b"));
 	}
 	

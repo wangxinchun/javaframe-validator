@@ -3,9 +3,9 @@ package cn.javaframe.validator.beans;
 import cn.javaframe.validator.EnumConstants.LogicType;
 import cn.javaframe.validator.EnumConstants.NextStepType;
 import cn.javaframe.validator.EnumConstants.RuleType;
+import cn.javaframe.validator.annotation.ConclusionItem;
 import cn.javaframe.validator.annotation.ConditionItem;
 import cn.javaframe.validator.annotation.LogicItem;
-import cn.javaframe.validator.annotation.RuleItem;
 import cn.javaframe.validator.annotation.Rules;
 
 public class UserCard {
@@ -13,16 +13,15 @@ public class UserCard {
 			conditionList = {
 					@ConditionItem(id = "A",type = RuleType.empty)
 			},
-			ruleList = {
-					@RuleItem(id = "B",type = RuleType.not_empty,tip = "不能为空"),
-					@RuleItem(id = "C",type = RuleType.string_length_limit,value = "[14,14]",tip = "字符长度不对"),
-					@RuleItem(id = "D",type = RuleType.string_length_limit,value = "[16,16]",tip = "字符长度不对")
+			conclusionList = {
+					@ConclusionItem(id = "B",type = RuleType.not_empty,tip = "不能为空"),
+					@ConclusionItem(id = "C",type = RuleType.string_length_limit,value = "[14,14]",tip = "必须为14个字符"),
+					@ConclusionItem(id = "D",type = RuleType.string_length_limit,value = "[16,16]",tip = "必须为16个字符")
 			},
 			logicList = {
 					@LogicItem(conclusion = "A",successNextStep = NextStepType.returnSuccess),
-					@LogicItem(condition = "B",conclusion = "C",type =LogicType.deduce ,successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail),
-					@LogicItem(condition = "B",conclusion = "D",type =LogicType.deduce ,successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
-			},
+					@LogicItem(condition = "B",type = LogicType.deduce,conclusion = "C||D", tip = "",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
+					},
 			text = "用户身份账号")
 	private long cardID;
 
