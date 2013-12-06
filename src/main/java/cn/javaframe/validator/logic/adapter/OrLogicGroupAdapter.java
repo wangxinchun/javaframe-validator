@@ -28,7 +28,7 @@ public class OrLogicGroupAdapter extends LogicGroupAdapter {
 				if(result.isSuccess()){
 					return result;
 				}else {
-					failBuilder.append(result.getMessage());
+					failBuilder.append(result.getMessage() + (item.equals(list.get(list.size()-1))? "":"或者"));
 				}
 			}
 			LogicValidateResult failResult = LogicValidateResult.errorInstance(failBuilder.toString());
