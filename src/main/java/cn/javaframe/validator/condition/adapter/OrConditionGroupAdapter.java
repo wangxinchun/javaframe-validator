@@ -27,7 +27,7 @@ public class OrConditionGroupAdapter extends ConditionGroupAdapter {
 				if(result.isSuccess()){
 					return ValidateResult.SUCCESS;
 				}else {
-					failBuilder.append(result.getMessage()).append("|");
+					failBuilder.append(result.getMessage()).append(item.equals(list.get(list.size()-1))? "":",或者");
 				}
 			}
 			return ValidateResult.errorInstance(failBuilder.toString());

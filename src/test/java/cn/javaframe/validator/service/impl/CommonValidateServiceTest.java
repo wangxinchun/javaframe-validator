@@ -43,12 +43,12 @@ public class CommonValidateServiceTest {
 					},
 					conclusionList = {
 							@ConclusionItem(id = "B",type = RuleType.not_empty,tip = "不能为空"),
-							@ConclusionItem(id = "C",type = RuleType.string_length_limit,value = "[14,14]",tip = "必须为14个字符"),
-							@ConclusionItem(id = "D",type = RuleType.string_length_limit,value = "[16,16]",tip = "必须为16个字符")
+							@ConclusionItem(id = "C",type = RuleType.string_length_limit,value = "[14,14]",tip = "为14个字符"),
+							@ConclusionItem(id = "D",type = RuleType.string_length_limit,value = "[16,16]",tip = "为16个字符")
 					},
 					logicList = {
 							@LogicItem(conclusion = "A",successNextStep = NextStepType.returnSuccess),
-							@LogicItem(condition = "B",type = LogicType.deduce,conclusion = "C||D", tip = "",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
+							@LogicItem(condition = "B",type = LogicType.deduce,conclusion = "C||D",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
 							},
 					text = "用户身份账号")
 			private long cardID;
@@ -56,7 +56,7 @@ public class CommonValidateServiceTest {
 		
 		CommonValidateService service = new CommonValidateService();
 		Map<String,String> params = new HashMap<String,String>();
-		params.put("cardID", "12345678901234");
+		params.put("cardID", "12345678901234d");
 		ValidateResult result = service.validate(params, UserCard.class);
 		System.out.println(result.isSuccess());
 		System.out.println(result.getMessage());
