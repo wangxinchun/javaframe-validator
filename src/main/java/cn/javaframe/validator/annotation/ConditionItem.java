@@ -8,9 +8,11 @@ import java.lang.annotation.Target;
 import cn.javaframe.validator.EnumConstants.RuleType;
 
 /**
- *  验证条件项
+ *  验证条件项 
  * @author wangxinchun1988@163.com
  * @date 2013-12-2下午9:45:20
+ * 
+ * tip: 条件项的注解，不需要包括 字段验证的失败信息。
  */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)

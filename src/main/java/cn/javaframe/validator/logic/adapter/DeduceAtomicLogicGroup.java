@@ -35,13 +35,11 @@ public class DeduceAtomicLogicGroup implements LogicGroup {
 			if(conclusionResult.isSuccess()){
 				logicResult = LogicValidateResult.successInstance(); 
 				logicResult.setSuccessNextStep(logic.getSuccessNextStep());
-			}else {//如果失败，那么激烈失败的下一步，并且设置失败原因
+			}else {//如果失败，那么继续失败的下一步，并且设置失败原因
 				logicResult = LogicValidateResult.errorInstance(logic.getTip()); //TODO
 				logicResult.setFailNextStep(logic.getFailNextStep());
 				if(logic.getTip()== null || logic.getTip().isEmpty()){
 					logicResult.setMessage(conclusionResult.getMessage());
-				}else{
-					logicResult.setMessage(logic.getTip());
 				}
 			}
 		}else { //如果条件失败，那么判断条件失败的下一步

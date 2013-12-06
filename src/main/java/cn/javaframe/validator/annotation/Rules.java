@@ -18,7 +18,7 @@ public @interface Rules {
 	/**
 	 * 验证规则集合
 	 */
-	RuleItem[] ruleList();
+	ConclusionItem[] conclusionList();
 	
 	/**
 	 * 校验规则依赖的条件

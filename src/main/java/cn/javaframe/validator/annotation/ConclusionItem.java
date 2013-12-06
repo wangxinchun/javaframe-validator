@@ -15,7 +15,7 @@ import cn.javaframe.validator.EnumConstants.TipType;
  */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RuleItem {
+public @interface ConclusionItem {
 
 	public String id();
 	

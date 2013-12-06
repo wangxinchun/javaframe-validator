@@ -41,15 +41,9 @@ public class ValidatorFactory {
     private static NumberReferCompareValidator numberReferCompareValidator = new NumberReferCompareValidator();
     private static DateReferCompareValidator dateReferCompareValidator = new DateReferCompareValidator();
     private static DateCompareNowValidator dateCompareNowValidator = new DateCompareNowValidator();
-    
+
     private static ValuesLimitValidator valuesLimitValidator = new ValuesLimitValidator();
     
-    
-    
-    /**
-     * 业务相关的验证器
-     */
-    private static PolicyWeekDaysValidator policyWeekDaysValidator = new PolicyWeekDaysValidator();
     
     static {
     	/** 通用验证器的注册*/
@@ -71,14 +65,7 @@ public class ValidatorFactory {
 		
 		commonValidatorCacheMap.put(RuleType.values_collection_limit, valuesLimitValidator);
 		
-		
-		
-		/**
-		 * 业务验证器的注册 此处先简单放到这里处理
-		 */
-		localValidatorCacheMap.put("week_day", policyWeekDaysValidator);
 	}
-    
 
 	public static IValidator getCommonValidator(RuleType ruleName) {
 		return commonValidatorCacheMap.get(ruleName);
@@ -93,7 +80,7 @@ public class ValidatorFactory {
 
 	/** 注册自定义验证器
 	 */
-	public void registerLocalValidator(String name,IValidator validator){
+	public static void registerLocalValidator(String name,IValidator validator){
 		localValidatorCacheMap.putIfAbsent(name, validator);
 	}
 }

@@ -15,7 +15,7 @@ import cn.javaframe.validator.IValidateService;
 import cn.javaframe.validator.IValidator;
 import cn.javaframe.validator.annotation.ConditionItem;
 import cn.javaframe.validator.annotation.LogicItem;
-import cn.javaframe.validator.annotation.RuleItem;
+import cn.javaframe.validator.annotation.ConclusionItem;
 import cn.javaframe.validator.annotation.Rules;
 import cn.javaframe.validator.bean.LogicVO;
 import cn.javaframe.validator.bean.LogicValidateResult;
@@ -124,6 +124,10 @@ public abstract class AbstractValidateService implements IValidateService {
 		}
 		if(item.tipType() == TipType.just_rule){
 			logic.setTip(item.tip());
+		}else{
+			if(item.tip() != null && !item.tip().isEmpty()){
+				logic.setTip(rules.text() + item.tip());
+			}
 		}
 		
 		logic.setFailNextStep(item.failNextStep());
@@ -140,7 +144,7 @@ public abstract class AbstractValidateService implements IValidateService {
 	 */
 	private Map<String,ValidatorVO> resolveValidatorMapByRules(Rules rules ,String name){
 		Map<String,ValidatorVO> ruleMap = new HashMap<String,ValidatorVO>();
-		for(RuleItem item : rules.ruleList()){
+		for(ConclusionItem item : rules.conclusionList()){
 			ValidatorVO vo = new ValidatorVO();
 			IValidator validator = null;
 			/* 找到验证器*/
