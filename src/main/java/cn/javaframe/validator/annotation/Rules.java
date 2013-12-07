@@ -17,15 +17,15 @@ import cn.javaframe.validator.EnumConstants.LogicAssembleType;
 public @interface Rules {
 
 	/**
-	 * 验证规则集合 */
+	 * 结论规则集合 */
 	ConclusionRule[] conclusionList();
 	
 	/**
-	 * 校验规则依赖的条件 */
+	 * 条件规则集合 */
 	ConditionRule[] conditionList() default {};
 	
 	/**
-	 * 有依赖的逻辑验证规则  */
+	 * 逻辑验证规则集合  */
 	LogicRule[] logicList() default {};
 	
 	/** 成员字段名称*/
