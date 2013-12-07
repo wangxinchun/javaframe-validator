@@ -6,7 +6,7 @@ import cn.javaframe.validator.bean.ValidateResult;
 import cn.javaframe.validator.bean.RuleVO;
 
 /**
- * 抽象校验器
+ * 校验器
  * @author wangxinchun1988@163.com
  * @date 2013-12-1下午1:08:55
  */
