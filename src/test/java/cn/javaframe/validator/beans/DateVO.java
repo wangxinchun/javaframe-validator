@@ -37,7 +37,7 @@ public class DateVO {
 	@Rules(
 			conditionList = {
 					@ConditionRule(id = "A",type = RuleType.empty),
-					@ConditionRule(id = "B",type = RuleType.not_empty),
+					//@ConditionRule(id = "B",type = RuleType.not_empty),
 					@ConditionRule(id = "C",type = RuleType.not_empty,dependProperty = "begin")
 				},
 			conclusionList = {
@@ -48,8 +48,7 @@ public class DateVO {
 			logicList = {
 					//如果为空，那么直接返回，如果不为空，那么直接进入下一个校验
 					@LogicRule(conclusion = "A",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.goNext),
-					@LogicRule(conclusion = "D"),// 格式验证
-					@LogicRule(conclusion = "E"),//当前时间验证
+					@LogicRule(conclusion = "D&&E"),// 此次的验证可以分开也可以合并
 					@LogicRule(condition= "C", conclusion = "F") //依赖验证
 			},
 			text = "结束时间")
