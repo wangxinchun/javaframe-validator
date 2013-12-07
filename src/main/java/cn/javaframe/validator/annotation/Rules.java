@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import cn.javaframe.validator.EnumConstants.LogicAssembleType;
+
 /**
  * 验证规则集
  * @author wangxinchun1988@163.com  <br>
@@ -31,4 +33,8 @@ public @interface Rules {
 	
 	/** 校验顺序，默认同一order值，按照在bean中出现的先后顺序校验*/
 	int order() default Integer.MIN_VALUE;
+	
+	/** LogicRule的组合模式，默认为AND组合*/
+	LogicAssembleType assembleType() default LogicAssembleType.AND;
+	
 }
