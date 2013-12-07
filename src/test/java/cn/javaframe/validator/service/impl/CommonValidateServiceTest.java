@@ -3,6 +3,8 @@ package cn.javaframe.validator.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import cn.javaframe.validator.bean.ValidateResult;
@@ -30,8 +32,17 @@ public class CommonValidateServiceTest {
 		params.put("begin", "2013-12-09");
 		params.put("end", "2013-12-08");
 		ValidateResult result = service.validate(params, DateVO.class);
-		System.out.println(result.isSuccess());
-		System.out.println(result.getMessage());
+		Assert.assertEquals(result.isSuccess(), false);
+	}
+	
+	@Test
+	public void testValidateDate2() {
+		CommonValidateService service = new CommonValidateService();
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("begin", "2013-12-09");
+		params.put("end", "2013-12-10");
+		ValidateResult result = service.validate(params, DateVO.class);
+		Assert.assertEquals(result.isSuccess(), true);
 	}
 
 }
