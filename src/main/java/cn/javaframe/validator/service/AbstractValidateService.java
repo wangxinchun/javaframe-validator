@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.javaframe.validator.EnumConstants.LogicAssembleType;
 import cn.javaframe.validator.EnumConstants.RuleType;
 import cn.javaframe.validator.EnumConstants.TipType;
 import cn.javaframe.validator.IValidateService;
@@ -18,8 +19,8 @@ import cn.javaframe.validator.annotation.LogicRule;
 import cn.javaframe.validator.annotation.Rules;
 import cn.javaframe.validator.bean.LogicRuleVO;
 import cn.javaframe.validator.bean.LogicValidateResult;
-import cn.javaframe.validator.bean.ValidateResult;
 import cn.javaframe.validator.bean.RuleVO;
+import cn.javaframe.validator.bean.ValidateResult;
 import cn.javaframe.validator.condition.ConditionGroup;
 import cn.javaframe.validator.condition.ConditionGroupResolver;
 import cn.javaframe.validator.exception.LogicConfigException;
@@ -27,6 +28,7 @@ import cn.javaframe.validator.logic.LogicGroup;
 import cn.javaframe.validator.logic.adapter.AndLogicGroupAdapter;
 import cn.javaframe.validator.logic.adapter.AtomicLogicGroup;
 import cn.javaframe.validator.logic.adapter.DeduceAtomicLogicGroup;
+import cn.javaframe.validator.logic.adapter.OrLogicGroupAdapter;
 import cn.javaframe.validator.validators.ValidatorFactory;
 
 /**
@@ -70,7 +72,11 @@ public abstract class AbstractValidateService implements IValidateService {
 					if(execute == null){
 						execute = atomicLogicGroup;
 					}else {
-						execute = new AndLogicGroupAdapter(Arrays.asList(execute, atomicLogicGroup));
+						if(rules.assembleType() == LogicAssembleType.AND){
+							execute = new AndLogicGroupAdapter(Arrays.asList(execute, atomicLogicGroup));
+						} else{
+							execute = new OrLogicGroupAdapter(Arrays.asList(execute, atomicLogicGroup));
+						}
 					}
 				}else {//推导验证逻辑项
 					if(conclusion != null && !conclusion.trim().isEmpty() && condition != null && !condition.trim().isEmpty()){
@@ -80,7 +86,11 @@ public abstract class AbstractValidateService implements IValidateService {
 						if(execute == null) {
 							execute = deduceLogic;
 						}else{
-							execute = new AndLogicGroupAdapter(Arrays.asList(execute,deduceLogic));
+							if(rules.assembleType() == LogicAssembleType.AND){
+								execute = new AndLogicGroupAdapter(Arrays.asList(execute,deduceLogic));
+							} else{
+								execute = new OrLogicGroupAdapter(Arrays.asList(execute,deduceLogic));
+							}
 						}
 					} else{
 						throw new LogicConfigException(item+ " 推导逻辑配置错误 ");
