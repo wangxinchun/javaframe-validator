@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 时间格式校验   <br/>
@@ -16,7 +16,7 @@ import cn.javaframe.validator.bean.ValidatorVO;
  */
 public class DateFormatValidator extends AbstractValidator {
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 			try {
 				String pattern = validator.getRule();
 				if(pattern == null || pattern.isEmpty()){

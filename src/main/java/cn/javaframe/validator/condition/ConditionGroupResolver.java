@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 import cn.javaframe.validator.condition.adapter.AndConditionGroupAdapter;
 import cn.javaframe.validator.condition.adapter.AtomitConditionGroup;
 import cn.javaframe.validator.condition.adapter.OrConditionGroupAdapter;
 import cn.javaframe.validator.exception.LogicConfigException;
 
 /**
- * 
+ * 条件表达式解析器
  * @author wangxinchun1988@163.com
  * @date 2013-12-1下午12:07:48
  */
@@ -25,20 +25,19 @@ public class ConditionGroupResolver {
 	private static final char right = ')';
 
 	/**
-	 * 逻辑解析器
+	 * 逻辑表达是的解析
 	 * 
-	 * @param logic
-	 *            ((A||B)&&(C||D))||(F&&H)
+	 * @param logic  ((A||B)&&(C||D))||(F&&H)
 	 * @param ruleMap 校验器id->ValidatorVO
-	 * @return
+	 * @return 返回逻辑表达式对应校验封装实现
 	 */
-	public static ConditionGroup resolve(String logic, Map<String, ValidatorVO> validatorMap) {
+	public static ConditionGroup resolve(String logic, Map<String, RuleVO> validatorMap) {
 		logic = trimLogic(logic);
 		if (logic == null || logic.trim().isEmpty()) {
 			return null;
 		}
 		if (!logic.contains(ANDAND) && !logic.contains(OROR)) {
-			ValidatorVO logicVO = validatorMap.get(logic);
+			RuleVO logicVO = validatorMap.get(logic);
 			if (logicVO == null) {
 				throw new LogicConfigException(logic + "没有对应的RuleItem");
 			}
@@ -80,7 +79,7 @@ public class ConditionGroupResolver {
 			}
 		}
 		if(andFlag == orFlag){
-			throw new LogicConfigException(logic+ "配置多个逻辑分割符合");
+			throw new LogicConfigException(logic+ "配置错误，最外层必须配置同一类型的逻辑分割符合");
 		}
 		List<ConditionGroup> listGroup = new ArrayList<ConditionGroup>();
 		if (subLogicList.size() > 0) {

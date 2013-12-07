@@ -105,11 +105,4 @@ abstract public class EnumConstants {
     	returnFail
     }
 	
-	public enum LogicType{
-		/** 简单验证*/
-		simple,
-		/** 推导逻辑*/
-		deduce
-	}
-	
 }

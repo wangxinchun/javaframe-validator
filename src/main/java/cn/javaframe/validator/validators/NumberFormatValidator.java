@@ -3,7 +3,7 @@ package cn.javaframe.validator.validators;
 import java.util.Map;
 
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 数字格式校验
@@ -13,7 +13,7 @@ import cn.javaframe.validator.bean.ValidatorVO;
 public class NumberFormatValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 			String value = params.get(validator.getProperty());
 			try{
 				String type = validator.getRule();

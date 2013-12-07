@@ -1,7 +1,7 @@
 package cn.javaframe.validator.exception;
 
 /**
- * 校验规则配置错误
+ * 校验器规则配置错误
  * 
  * @author xinchun.wang
  * 

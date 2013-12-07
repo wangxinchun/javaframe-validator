@@ -1,26 +1,25 @@
 package cn.javaframe.validator.beans;
 
-import cn.javaframe.validator.EnumConstants.LogicType;
 import cn.javaframe.validator.EnumConstants.NextStepType;
 import cn.javaframe.validator.EnumConstants.RuleType;
-import cn.javaframe.validator.annotation.ConclusionItem;
-import cn.javaframe.validator.annotation.ConditionItem;
-import cn.javaframe.validator.annotation.LogicItem;
+import cn.javaframe.validator.annotation.ConclusionRule;
+import cn.javaframe.validator.annotation.ConditionRule;
+import cn.javaframe.validator.annotation.LogicRule;
 import cn.javaframe.validator.annotation.Rules;
 
 public class UserCard {
 	@Rules(
 			conditionList = {
-					@ConditionItem(id = "A",type = RuleType.empty)
+					@ConditionRule(id = "A",type = RuleType.empty)
 			},
 			conclusionList = {
-					@ConclusionItem(id = "B",type = RuleType.not_empty,tip = "不能为空"),
-					@ConclusionItem(id = "C",type = RuleType.string_length_limit,value = "[14,14]",tip = "必须为14个字符"),
-					@ConclusionItem(id = "D",type = RuleType.string_length_limit,value = "[16,16]",tip = "必须为16个字符")
+					@ConclusionRule(id = "B",type = RuleType.not_empty,tip = "不能为空"),
+					@ConclusionRule(id = "C",type = RuleType.string_length_limit,value = "[14,14]",tip = "必须为14个字符"),
+					@ConclusionRule(id = "D",type = RuleType.string_length_limit,value = "[16,16]",tip = "必须为16个字符")
 			},
 			logicList = {
-					@LogicItem(conclusion = "A",successNextStep = NextStepType.returnSuccess),
-					@LogicItem(condition = "B",type = LogicType.deduce,conclusion = "C||D", tip = "",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
+					@LogicRule(conclusion = "A",successNextStep = NextStepType.returnSuccess),
+					@LogicRule(condition = "B",conclusion = "C||D", tip = "",successNextStep = NextStepType.returnSuccess,failNextStep = NextStepType.returnFail)
 					},
 			text = "用户身份账号")
 	private long cardID;

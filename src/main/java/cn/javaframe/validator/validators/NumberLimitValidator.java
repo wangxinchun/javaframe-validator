@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 数字范围校验校验
@@ -18,7 +18,7 @@ import cn.javaframe.validator.bean.ValidatorVO;
 public class NumberLimitValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 		//校验name对应的值不能为空
 			String paramValue = params.get(validator.getProperty());
 			try {

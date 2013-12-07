@@ -3,7 +3,7 @@ package cn.javaframe.validator.bean;
 import cn.javaframe.validator.EnumConstants.NextStepType;
 
 /**
- * 验证结果
+ * 逻辑验证结果
  * @author wangxinchun1988@163.com
  *
  */

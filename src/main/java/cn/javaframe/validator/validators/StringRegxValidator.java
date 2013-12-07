@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 正则表达式验证器
@@ -17,7 +17,7 @@ public class StringRegxValidator extends AbstractValidator {
     private final ConcurrentHashMap<String, Pattern> cacheMap = new ConcurrentHashMap<String, Pattern>();
     
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 		String value = params.get(validator.getProperty());
 		String ruleValue = validator.getRule();
 		Pattern pattern = cacheMap.get(ruleValue);

@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 import cn.javaframe.validator.exception.ValidatorConfigException;
 
 /**
@@ -19,7 +19,7 @@ import cn.javaframe.validator.exception.ValidatorConfigException;
 public class ValuesLimitValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 
 		String ruleValue = validator.getRule();
 		if (StringUtils.isEmpty(ruleValue)) {

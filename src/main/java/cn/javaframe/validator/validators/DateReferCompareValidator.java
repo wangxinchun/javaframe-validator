@@ -7,7 +7,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 import cn.javaframe.validator.EnumConstants.BoundryType;
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 时间校验器 支持：>,>=,=,<=,< 五种方式
@@ -18,7 +18,7 @@ import cn.javaframe.validator.bean.ValidatorVO;
 public class DateReferCompareValidator extends AbstractReferValidator {
 	
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 		try {
 			String ruleValue = validator.getRule();
 			String[] ruleValueArr = ruleValue.split(",");

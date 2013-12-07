@@ -3,7 +3,7 @@ package cn.javaframe.validator.logic.adapter;
 import java.util.Map;
 
 import cn.javaframe.validator.EnumConstants.NextStepType;
-import cn.javaframe.validator.bean.LogicVO;
+import cn.javaframe.validator.bean.LogicRuleVO;
 import cn.javaframe.validator.bean.LogicValidateResult;
 import cn.javaframe.validator.bean.ValidateResult;
 import cn.javaframe.validator.exception.ValidatorConfigException;
@@ -16,8 +16,8 @@ import cn.javaframe.validator.logic.LogicGroup;
  * @date 2013-12-1下午1:04:48
  */
 public class DeduceAtomicLogicGroup implements LogicGroup {
-	private LogicVO logic;
-	public DeduceAtomicLogicGroup(final LogicVO logic) {
+	private LogicRuleVO logic;
+	public DeduceAtomicLogicGroup(final LogicRuleVO logic) {
 		this.logic = logic;
 	}
 	

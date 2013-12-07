@@ -1,4 +1,4 @@
-package cn.javaframe.validator.service.impl;
+package cn.javaframe.validator.validators;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,10 +7,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
-import cn.javaframe.validator.validators.PolicyWeekDaysValidator;
+import cn.javaframe.validator.bean.RuleVO;
 import cn.javaframe.validator.validators.ValidatorFactory;
 
+/**
+ * 自定义校验器的使用
+ * @author wangxinchun
+ *
+ */
 public class CustomerValidatorTest {
 	/**
      * 业务相关的验证器
@@ -22,7 +26,7 @@ public class CustomerValidatorTest {
     
     @Test
     public void testCustomerValidator_true(){
-    	ValidatorVO vo = new ValidatorVO();
+    	RuleVO vo = new RuleVO();
     	vo.setProperty("weekLimit");
     	vo.setTip("星期设置错误");
     	
@@ -34,7 +38,7 @@ public class CustomerValidatorTest {
     
     @Test
     public void testCustomerValidator_fail(){
-    	ValidatorVO vo = new ValidatorVO();
+    	RuleVO vo = new RuleVO();
     	vo.setProperty("weekLimit");
     	vo.setTip("星期设置错误");
     	

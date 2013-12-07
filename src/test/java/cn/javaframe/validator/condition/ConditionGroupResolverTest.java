@@ -6,16 +6,16 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 public class ConditionGroupResolverTest {
 
 	@Test
 	public void testTrimLogic() {
-		Map<String, ValidatorVO> ruleMap = new HashMap<String, ValidatorVO>();
-		ruleMap.put("a", new ValidatorVO());
-		ruleMap.put("b", new ValidatorVO());
-		ruleMap.put("c", new ValidatorVO());
+		Map<String, RuleVO> ruleMap = new HashMap<String, RuleVO>();
+		ruleMap.put("a", new RuleVO());
+		ruleMap.put("b", new RuleVO());
+		ruleMap.put("c", new RuleVO());
 		ConditionGroup group = ConditionGroupResolver.resolve("(((a||b)&&(b&&c)))", ruleMap);
 		Assert.assertTrue(group != null);
 	}

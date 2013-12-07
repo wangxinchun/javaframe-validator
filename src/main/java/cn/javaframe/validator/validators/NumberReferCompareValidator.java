@@ -5,7 +5,7 @@ import java.util.Map;
 
 import cn.javaframe.validator.EnumConstants.BoundryType;
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 数字类型的参考比较器
@@ -15,7 +15,7 @@ import cn.javaframe.validator.bean.ValidatorVO;
 public class NumberReferCompareValidator extends AbstractReferValidator {
 
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 
 		try {
 			String ruleValue = validator.getRule();

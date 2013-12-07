@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import cn.javaframe.validator.EnumConstants.RuleType;
 
 /**
- *  验证条件项 
+ * 条件项注解 
  * @author wangxinchun1988@163.com
  * @date 2013-12-2下午9:45:20
  * 
@@ -16,7 +16,7 @@ import cn.javaframe.validator.EnumConstants.RuleType;
  */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ConditionItem {
+public @interface ConditionRule {
 
 	public String id();
 	

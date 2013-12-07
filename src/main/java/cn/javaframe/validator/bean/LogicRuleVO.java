@@ -4,12 +4,12 @@ import cn.javaframe.validator.EnumConstants.NextStepType;
 import cn.javaframe.validator.condition.ConditionGroup;
 
 /**
- * 逻辑传递VO
+ * 逻辑规则项VO
  * 
  * @author wangxinchun1988@163.com
  * @date 2013-12-1下午1:15:28
  */
-public class LogicVO {
+public class LogicRuleVO {
 	private ConditionGroup conditionGroup;
 	private ConditionGroup conclusionGroup;
 	private String tip; // 校验失败提醒信息

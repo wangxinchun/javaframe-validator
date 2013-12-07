@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import cn.javaframe.validator.EnumConstants.BoundryType;
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 import cn.javaframe.validator.exception.ValidatorConfigException;
 
 /**
@@ -27,7 +27,7 @@ import cn.javaframe.validator.exception.ValidatorConfigException;
 public class StringLimitLengthValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 		if(validator.getRule() == null){
 			throw new ValidatorConfigException("StringLimitLengthValidator value 配置错误 ,必须以[,( 开头,以),] 结尾 ");
 		}

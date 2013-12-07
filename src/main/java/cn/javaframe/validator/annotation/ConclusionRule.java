@@ -9,14 +9,15 @@ import cn.javaframe.validator.EnumConstants.RuleType;
 import cn.javaframe.validator.EnumConstants.TipType;
 
 /**
- * 验证规则项
+ * 推导结果项注解
  * @author xinchun.wang
  *
  */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ConclusionItem {
+public @interface ConclusionRule {
 
+	/** 规则项的位唯一id属性*/
 	public String id();
 	
 	/**
@@ -30,7 +31,7 @@ public @interface ConclusionItem {
 	public String value() default "";
 
 	/**
-	 * 验证失败后的提醒信息
+	 * 此验证失败后的提醒信息，如果没有配置那么从ConclusionItem 取tip信息
 	 */
 	public String tip() default "";
 	

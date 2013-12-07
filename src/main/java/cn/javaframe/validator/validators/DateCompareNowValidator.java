@@ -6,7 +6,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 import cn.javaframe.validator.EnumConstants.BoundryType;
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 和当前时间比较验证器
@@ -19,7 +19,7 @@ import cn.javaframe.validator.bean.ValidatorVO;
  */
 public class DateCompareNowValidator extends AbstractValidator {
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 		try {
 			String[] ruleValueArr = validator.getRule().split(",");
 			String pattern = PATTERN_yyyy_MM_dd;

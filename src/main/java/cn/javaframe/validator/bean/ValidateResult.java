@@ -1,9 +1,10 @@
 package cn.javaframe.validator.bean;
 
 /**
- * 验证结果
- * @author xinchun.wang
+ * 条件或者结论规则的验证结果
+ * @author xinchun.wang <br>
  *
+ * 因为此验证不包含下一步继续的校验逻辑，所以比 LogicValidateResult 表达的内容少
  */
 public class ValidateResult {
 

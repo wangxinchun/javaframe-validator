@@ -7,7 +7,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.bean.ValidatorVO;
+import cn.javaframe.validator.bean.RuleVO;
 
 /**
  * 班期限制验证器
@@ -27,7 +27,7 @@ public class PolicyWeekDaysValidator extends AbstractValidator {
 	}
 
 	@Override
-	public ValidateResult validate(ValidatorVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
 		String value = params.get(validator.getProperty());
 		if (StringUtils.isEmpty(value) || value.startsWith(",") || value.endsWith(",")) {
 			return ValidateResult.errorInstance(validator.getTip());

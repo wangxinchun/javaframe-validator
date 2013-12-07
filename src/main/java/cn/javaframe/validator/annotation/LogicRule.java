@@ -1,6 +1,5 @@
 package cn.javaframe.validator.annotation;
 
-import cn.javaframe.validator.EnumConstants.LogicType;
 import cn.javaframe.validator.EnumConstants.NextStepType;
 import cn.javaframe.validator.EnumConstants.TipType;
 
@@ -9,11 +8,7 @@ import cn.javaframe.validator.EnumConstants.TipType;
  * @author wangxinchun1988@163.com
  * @date 2013-12-2下午1:37:47
  */
-public @interface LogicItem {
-	/** 逻辑类型
-	 * 1、有简单逻辑 condition 不必有值，录入也无效。
-	 * 2、推导逻辑  condition 和 conclusion 必须有值*/
-	public LogicType type() default LogicType.simple;
+public @interface LogicRule {
 
 	/** 条件：逻辑条件表达式。<BR>
 	 *  tips：简单逻辑没有条件的，推导逻辑才有条件*/
