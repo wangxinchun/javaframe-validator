@@ -105,4 +105,9 @@ abstract public class EnumConstants {
     	returnFail
     }
 	
+    /** 逻辑组合模式*/
+    public enum LogicAssembleType{
+    	OR,
+    	AND
+    }
 }
