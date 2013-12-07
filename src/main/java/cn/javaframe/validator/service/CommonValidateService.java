@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import cn.javaframe.validator.annotation.ConclusionRule;
 import cn.javaframe.validator.annotation.Rules;
 import cn.javaframe.validator.bean.ValidateResult;
 import cn.javaframe.validator.util.ClassHelper;
@@ -39,10 +38,6 @@ public class CommonValidateService extends AbstractValidateService {
 			String name = itemField.getName();
 			Rules rules = item.getValue();
 			if(rules == null){
-				continue;
-			}
-			ConclusionRule[] ruleList = rules.conclusionList();
-			if(ruleList == null || ruleList.length <=0){
 				continue;
 			}
 			ValidateResult result = processRules(rules, name, params);
