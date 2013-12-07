@@ -39,7 +39,10 @@ public class ConditionGroupResolver {
 		if (!logic.contains(ANDAND) && !logic.contains(OROR)) {
 			RuleVO logicVO = validatorMap.get(logic);
 			if (logicVO == null) {
-				throw new LogicConfigException(logic + "没有对应的RuleItem");
+				if(logic.indexOf(""+AND)!=-1 || logic.indexOf(""+OR)!= -1){
+					throw new LogicConfigException(logic + "配置错误，与和或的逻辑请使用 && || 表达 ");
+				}
+				throw new LogicConfigException(logic + "没有对应的Rule");
 			}
 			return new AtomitConditionGroup(logicVO);
 		}
