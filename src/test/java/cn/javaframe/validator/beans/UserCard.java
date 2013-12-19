@@ -57,12 +57,12 @@ public class UserCard implements ConvertMapAble{
 			conditionList = {
 					@ConditionRule(id = "A",type = RuleType.empty),
 					//@ConditionRule(id = "B",type = RuleType.not_empty),
-					@ConditionRule(id = "C",type = RuleType.not_empty,dependProperty = "begin")
+					@ConditionRule(id = "C",type = RuleType.not_empty,dependProperty = "createDate")
 				},
 			conclusionList = {
 					@ConclusionRule(id = "D",type = RuleType.date_format,value = "yyyy-MM-dd",tip = "格式错误"),
 					@ConclusionRule(id = "E",type = RuleType.date_compare_now,value = ">=,yyyy-MM-dd",tip = "必须大于当前时间"),
-					@ConclusionRule(id = "F",type = RuleType.date_compare_refer,value = "begin,>=,yyyy-MM-dd",tip = "结束时间必须大于开始时间")
+					@ConclusionRule(id = "F",type = RuleType.date_compare_refer,value = "createDate,>=,yyyy-MM-dd",tip = "结束时间必须大于开始时间")
 			},
 			logicList = {
 					//如果为空，那么直接返回，如果不为空，那么直接进入下一个校验
