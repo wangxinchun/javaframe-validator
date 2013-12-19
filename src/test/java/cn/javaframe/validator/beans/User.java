@@ -1,6 +1,7 @@
 package cn.javaframe.validator.beans;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.javaframe.validator.ConvertMapAble;
@@ -16,6 +17,9 @@ import cn.javaframe.validator.annotation.TargetBean;
 public class User implements ConvertMapAble{
 	@Rules(targetType = TargetType.complex)
 	UserCard userCard;
+	
+	@Rules(targetType = TargetType.complex)
+	private List<Skill> list ;
 	
 	@Rules(
 			conclusionList = {
@@ -69,7 +73,16 @@ public class User implements ConvertMapAble{
 		Map<String,Object> tempMap = new HashMap<String,Object>();
 		tempMap.put("username", username);
 		tempMap.put("userCard", userCard.toMap());
+		tempMap.put("list", list);
 		return tempMap;
+	}
+
+	public List<Skill> getList() {
+		return list;
+	}
+
+	public void setList(List<Skill> list) {
+		this.list = list;
 	}
 	
 	

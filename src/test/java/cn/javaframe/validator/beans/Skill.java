@@ -1,5 +1,9 @@
 package cn.javaframe.validator.beans;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import cn.javaframe.validator.ConvertMapAble;
 import cn.javaframe.validator.EnumConstants.NextStepType;
 import cn.javaframe.validator.EnumConstants.RuleType;
 import cn.javaframe.validator.annotation.ConclusionRule;
@@ -8,7 +12,7 @@ import cn.javaframe.validator.annotation.Rules;
 import cn.javaframe.validator.annotation.TargetBean;
 
 @TargetBean
-public class Skill {
+public class Skill  implements ConvertMapAble{
 	
 	@Rules(
 			conclusionList = {
@@ -34,11 +38,11 @@ public class Skill {
 	
 	@Rules(
 			conclusionList = {
-					@ConclusionRule(id = "A",type = RuleType.empty),
-					@ConclusionRule(id = "B",type = RuleType.string_length_limit,value = "[0,500]",tip = "不能超过500个字符"),
+					@ConclusionRule(id = "A",type = RuleType.empty, tip = "为空"),
+					@ConclusionRule(id = "B",type = RuleType.string_length_limit,value = "[10,500]",tip = "必须在10到500个字符直接"),
 			},
 			logicList = {
-					@LogicRule(conclusion = "A&&B",successNextStep = NextStepType.returnSuccess)
+					@LogicRule(conclusion = "A||B",successNextStep = NextStepType.returnSuccess)
 					},
 			text = "技能描述")
 	private String note;
@@ -67,5 +71,16 @@ public class Skill {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	@Override
+	public Map<String, ?> toMap() {
+		Map<String,Object> map = new LinkedHashMap<String,Object>();
+		map.put("name", name);
+		map.put("useYear", useYear);
+		map.put("note",note);
+		return map;
+	}
+	
+	
 
 }
