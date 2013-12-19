@@ -1,7 +1,5 @@
 package cn.javaframe.validator.service.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +15,11 @@ import cn.javaframe.validator.beans.UserCard;
 import cn.javaframe.validator.service.BeanValidateService;
 import cn.javaframe.validator.service.MapValidateService;
 
+/**
+ * Test Case
+ * @author wangxinchun1988@163.com
+ * @date 2013-12-19下午8:18:56
+ */
 public class CommonValidateServiceTest {
 	@Test
 	public void testValidate() {
