@@ -12,7 +12,7 @@ import cn.javaframe.validator.annotation.TargetBean;
 import cn.javaframe.validator.bean.ValidateResult;
 
 /**
- * 通用规则验证器 <br>
+ * 对象通用验证器 <br>
  * 
  * 根据cls 检索其字段上的注解，解析注解，然后校验params的信息。
  * @author xinchun.wang
@@ -51,7 +51,7 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 	            	} else if(obj.getClass().isAssignableFrom(Collection.class)){
 	            		return doCollectionValidator((Collection<?>)obj);
 	            	} else{
-	            		return doValidate(bean);
+	            		return doValidate(obj);
 	            	}
 	            }
 			}
@@ -70,7 +70,7 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 	}
 	
 	/**
-	 * 
+	 * 校验bean的集合列表
 	 * @param bean
 	 * @return
 	 */
@@ -85,7 +85,7 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 	}
 	
 	/**
-	 * 
+	 * 校验数组列表bean
 	 * @param bean
 	 * @return
 	 */

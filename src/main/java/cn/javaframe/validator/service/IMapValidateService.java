@@ -5,7 +5,7 @@ import java.util.Map;
 import cn.javaframe.validator.bean.ValidateResult;
 
 /**
- * 验证服务接口
+ * Map验证服务接口
  * @author xinchun.wang
  *
  */

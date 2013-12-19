@@ -7,7 +7,7 @@ import cn.javaframe.validator.annotation.Rules;
 import cn.javaframe.validator.bean.ValidateResult;
 
 /**
- * 通用规则验证器 <br>
+ * Map通用规则验证器 <br>
  * 
  * 根据cls 检索其字段上的注解，解析注解，然后校验params的信息。
  * @author xinchun.wang

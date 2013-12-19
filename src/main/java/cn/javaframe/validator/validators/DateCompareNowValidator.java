@@ -34,8 +34,7 @@ public class DateCompareNowValidator extends AbstractValidator {
 			long paramTime = -1;
 			if(propertyValue instanceof Date){
 				paramTime = ((Date)propertyValue).getTime();
-			}
-			if(propertyValue instanceof Long){
+			}else if(propertyValue instanceof Long){
 				paramTime = (Long)propertyValue;
 			} else{
 				 paramTime = DateUtils.parseDate(propertyValue.toString(), new String[]{pattern,PATTERN_yyyy_MM_dd2}).getTime();
