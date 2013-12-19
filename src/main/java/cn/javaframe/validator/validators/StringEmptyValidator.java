@@ -16,15 +16,18 @@ import cn.javaframe.validator.bean.RuleVO;
 public class StringEmptyValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
 		if(isEmpty(params.get(validator.getProperty()))){
 			return ValidateResult.SUCCESS;
 		}
 		return ValidateResult.errorInstance(validator.getTip());
 	}
     
-	protected boolean isEmpty(String target){
-		return StringUtils.isEmpty(target);
+	protected boolean isEmpty(Object target){
+		if(target == null){
+			return true;
+		}
+		return StringUtils.isEmpty(target.toString());
 	}
 	
 }

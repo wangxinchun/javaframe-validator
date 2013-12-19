@@ -1,13 +1,14 @@
 package cn.javaframe.validator.validators;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
 
 import cn.javaframe.validator.EnumConstants.BoundryType;
-import cn.javaframe.validator.bean.ValidateResult;
 import cn.javaframe.validator.bean.RuleVO;
+import cn.javaframe.validator.bean.ValidateResult;
 
 /**
  * 时间校验器 支持：>,>=,=,<=,< 五种方式
@@ -18,7 +19,7 @@ import cn.javaframe.validator.bean.RuleVO;
 public class DateReferCompareValidator extends AbstractReferValidator {
 	
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
 		try {
 			String ruleValue = validator.getRule();
 			String[] ruleValueArr = ruleValue.split(",");
@@ -28,12 +29,29 @@ public class DateReferCompareValidator extends AbstractReferValidator {
 			if(ruleValueArr.length == 3){
 				pattern = ruleValueArr[2];
 			}
-			String targerStrValue = params.get(validator.getProperty());
-			String referStrValue = params.get(referName);
-
-			long targetLong = DateUtils.parseDate(targerStrValue, new String[]{pattern,PATTERN_yyyy_MM_dd2}).getTime();
-			long referLong = DateUtils.parseDate(referStrValue, new String[]{pattern,PATTERN_yyyy_MM_dd2}).getTime();
-
+			
+			long targetLong = -1;
+			long referLong = -1;
+			
+			Object targetObject = params.get(validator.getProperty());
+			Object referObject = params.get(referName);
+			
+			if(targetObject instanceof Long){
+				targetLong = (Long)targetObject;
+			}else if(targetObject instanceof Date){
+				targetLong = ((Date)targetObject).getTime();
+			} else{
+				targetLong = DateUtils.parseDate(targetObject.toString(), new String[]{pattern,PATTERN_yyyy_MM_dd2}).getTime();
+			}
+			
+			if(referObject instanceof Long){
+				referLong = (Long)referObject;
+			}else if(targetObject instanceof Date){
+				referLong = ((Date)referObject).getTime();
+			}else{
+				referLong = DateUtils.parseDate(referObject.toString(), new String[]{pattern,PATTERN_yyyy_MM_dd2}).getTime();
+			}
+			
 			boolean result = numberCompare(BigDecimal.valueOf(targetLong), BigDecimal.valueOf(referLong), type);
 			if (result) {
 				return ValidateResult.SUCCESS;

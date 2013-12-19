@@ -1,5 +1,6 @@
 package cn.javaframe.validator.validators;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
@@ -19,17 +20,28 @@ import cn.javaframe.validator.bean.RuleVO;
  */
 public class DateCompareNowValidator extends AbstractValidator {
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
 		try {
 			String[] ruleValueArr = validator.getRule().split(",");
 			String pattern = PATTERN_yyyy_MM_dd;
 			if (ruleValueArr.length == 2) {
 				pattern = ruleValueArr[1];
 			}
-
-			long paramTime = DateUtils.parseDate(params.get(validator.getProperty()), new String[]{pattern,PATTERN_yyyy_MM_dd2}).getTime();
+			Object propertyValue = params.get(validator.getProperty());
+			if(propertyValue == null){
+				ValidateResult.errorInstance(validator.getTip());
+			}
+			long paramTime = -1;
+			if(propertyValue instanceof Date){
+				paramTime = ((Date)propertyValue).getTime();
+			}
+			if(propertyValue instanceof Long){
+				paramTime = (Long)propertyValue;
+			} else{
+				 paramTime = DateUtils.parseDate(propertyValue.toString(), new String[]{pattern,PATTERN_yyyy_MM_dd2}).getTime();
+			}
+			
 			long nowTime = System.currentTimeMillis();
-
 			BoundryType boundryType = resolveBoundryType(ruleValueArr[0]);
 			if (numberCompare(paramTime, nowTime, boundryType)) {
 				return ValidateResult.SUCCESS;

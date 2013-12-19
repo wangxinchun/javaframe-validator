@@ -66,4 +66,15 @@ public class LogicRuleVO {
 		this.conditionFailNextStep = conditionFailNextStep;
 	}
 
+	@Override
+	public String toString() {
+		return "LogicRuleVO [conditionGroup=" + conditionGroup
+				+ ", conclusionGroup=" + conclusionGroup + ", tip=" + tip
+				+ ", successNextStep=" + successNextStep + ", failNextStep="
+				+ failNextStep + ", conditionFailNextStep="
+				+ conditionFailNextStep + "]";
+	}
+	
+	
+
 }

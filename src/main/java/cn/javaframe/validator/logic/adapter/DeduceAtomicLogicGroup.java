@@ -22,7 +22,7 @@ public class DeduceAtomicLogicGroup implements LogicGroup {
 	}
 	
 	@Override
-	public LogicValidateResult executeLogic(Map<String, String> params) {
+	public LogicValidateResult executeLogic(Map<String, ?> params) {
 		if(logic == null){
 			throw new ValidatorConfigException();
 		}

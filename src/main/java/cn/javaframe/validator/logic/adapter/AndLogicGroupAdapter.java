@@ -18,7 +18,7 @@ public  class AndLogicGroupAdapter extends LogicGroupAdapter {
 		this.list = list;
 	}
 	@Override
-	public LogicValidateResult executeLogic(Map<String, String> params) {
+	public LogicValidateResult executeLogic(Map<String, ?> params) {
 		if(list == null || list.size() <= 0){
 			return LogicValidateResult.SUCCESS;
 		}else {
@@ -41,5 +41,11 @@ public  class AndLogicGroupAdapter extends LogicGroupAdapter {
 			return LogicValidateResult.SUCCESS;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "AndLogicGroupAdapter [list=" + list + "]";
+	}
+	
 	
 }

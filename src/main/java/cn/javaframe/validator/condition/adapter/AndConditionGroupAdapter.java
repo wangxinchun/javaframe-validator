@@ -17,7 +17,7 @@ public  class AndConditionGroupAdapter extends ConditionGroupAdapter {
 		this.list = list;
 	}
 	@Override
-	public ValidateResult executeCondition(Map<String, String> params) {
+	public ValidateResult executeCondition(Map<String, ?> params) {
 		if(list == null || list.size() <= 0){
 			return ValidateResult.SUCCESS;
 		}else {
@@ -29,6 +29,11 @@ public  class AndConditionGroupAdapter extends ConditionGroupAdapter {
 			}
 			return ValidateResult.SUCCESS;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "AndConditionGroupAdapter [list=" + list + "]";
 	}
 	
 }

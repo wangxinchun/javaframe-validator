@@ -21,7 +21,7 @@ public class AtomicLogicGroup implements LogicGroup {
 	}
 	
 	@Override
-	public LogicValidateResult executeLogic(Map<String, String> params) {
+	public LogicValidateResult executeLogic(Map<String, ?> params) {
 		if(logic == null){
 			throw new ValidatorConfigException();
 		}
@@ -43,4 +43,10 @@ public class AtomicLogicGroup implements LogicGroup {
 		return logicResult;
 	}
 
+	@Override
+	public String toString() {
+		return "AtomicLogicGroup [logic=" + logic + "]";
+	}
+
+	
 }

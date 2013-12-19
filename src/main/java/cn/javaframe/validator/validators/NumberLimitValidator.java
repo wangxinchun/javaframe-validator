@@ -18,9 +18,9 @@ import cn.javaframe.validator.bean.RuleVO;
 public class NumberLimitValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
 		//校验name对应的值不能为空
-			String paramValue = params.get(validator.getProperty());
+			String paramValue = params.get(validator.getProperty()).toString();
 			try {
 				String ruleValue = validator.getRule();
 				boolean leftContains = false;

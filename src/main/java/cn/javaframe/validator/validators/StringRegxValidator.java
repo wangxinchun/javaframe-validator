@@ -17,8 +17,8 @@ public class StringRegxValidator extends AbstractValidator {
     private final ConcurrentHashMap<String, Pattern> cacheMap = new ConcurrentHashMap<String, Pattern>();
     
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
-		String value = params.get(validator.getProperty());
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
+		String value = params.get(validator.getProperty()).toString();
 		String ruleValue = validator.getRule();
 		Pattern pattern = cacheMap.get(ruleValue);
 		if(pattern == null){

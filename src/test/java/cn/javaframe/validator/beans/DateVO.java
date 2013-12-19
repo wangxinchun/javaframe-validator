@@ -1,13 +1,16 @@
 package cn.javaframe.validator.beans;
 
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import cn.javaframe.validator.ConvertMapAble;
 import cn.javaframe.validator.EnumConstants.NextStepType;
 import cn.javaframe.validator.EnumConstants.RuleType;
 import cn.javaframe.validator.annotation.ConclusionRule;
 import cn.javaframe.validator.annotation.ConditionRule;
 import cn.javaframe.validator.annotation.LogicRule;
 import cn.javaframe.validator.annotation.Rules;
+import cn.javaframe.validator.annotation.TargetBean;
 
 /**
  * 验证要求：
@@ -17,7 +20,8 @@ import cn.javaframe.validator.annotation.Rules;
  * @author wangxinchun
  *
  */
-public class DateVO {
+@TargetBean
+public class DateVO implements ConvertMapAble{
 	@Rules(
 			conditionList = {
 				@ConditionRule(id = "A",type = RuleType.empty),
@@ -32,7 +36,7 @@ public class DateVO {
 					@LogicRule(condition = "B", conclusion = "C") //此次的B配置可以去掉，因A成功，已经返回，所以B条件肯定成立
 			},
 			text = "开始时间")
-	private Date begin;
+	private String begin;
 	
 	@Rules(
 			conditionList = {
@@ -52,22 +56,32 @@ public class DateVO {
 					@LogicRule(condition= "C", conclusion = "F") //依赖验证
 			},
 			text = "结束时间")
-	private Date end;
+	private String end;
 
-	public Date getBegin() {
+	public String getBegin() {
 		return begin;
 	}
 
-	public void setBegin(Date begin) {
+	public void setBegin(String begin) {
 		this.begin = begin;
 	}
 
-	public Date getEnd() {
+	public String getEnd() {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
+
+	@Override
+	public Map<String, ?> toMap() {
+	    Map<String,Object> tempMap = new HashMap<String,Object>();
+	    tempMap.put("begin", begin);
+	    tempMap.put("end", end);
+		return tempMap;
+	}
+
+	
 
 }

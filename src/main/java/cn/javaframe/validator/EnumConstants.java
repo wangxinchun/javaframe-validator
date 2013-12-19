@@ -110,4 +110,9 @@ abstract public class EnumConstants {
     	OR,
     	AND
     }
+    
+    public enum TargetType{
+    	simple,
+    	complex
+    }
 }

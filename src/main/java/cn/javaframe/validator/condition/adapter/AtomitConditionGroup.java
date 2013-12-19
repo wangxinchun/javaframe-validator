@@ -23,7 +23,7 @@ public class AtomitConditionGroup implements ConditionGroup {
 	}
 	
 	@Override
-	public ValidateResult executeCondition(Map<String, String> params) {
+	public ValidateResult executeCondition(Map<String, ?> params) {
 		if(ruleVo == null){
 			throw new ValidatorConfigException();
 		}
@@ -41,6 +41,11 @@ public class AtomitConditionGroup implements ConditionGroup {
 		
 		ValidateResult result = validator.validate(ruleVo, params);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "AtomitConditionGroup [ruleVo=" + ruleVo + "]";
 	}
 
 }

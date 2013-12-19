@@ -2,11 +2,9 @@ package cn.javaframe.validator.service;
 
 import java.lang.reflect.Field;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import cn.javaframe.validator.annotation.Rules;
 import cn.javaframe.validator.bean.ValidateResult;
-import cn.javaframe.validator.util.ClassHelper;
 
 /**
  * 通用规则验证器 <br>
@@ -15,8 +13,7 @@ import cn.javaframe.validator.util.ClassHelper;
  * @author xinchun.wang
  * 
  */
-public class CommonValidateService extends AbstractValidateService {
-	final private static ConcurrentHashMap<String, Map<Field, Rules>> cacheMap = new ConcurrentHashMap<String, Map<Field, Rules>>();
+public class MapValidateService extends AbstractValidateService   implements IMapValidateService{
 	
 	/*
 	 * (non-Javadoc)m
@@ -26,21 +23,15 @@ public class CommonValidateService extends AbstractValidateService {
 	 * #validate(java.util.Map)
 	 */
 	@Override
-	public ValidateResult validate(Map<String, String> params,Class<?> cls) {
-		Map<Field, Rules> fieldRuleMap = cacheMap.get(cls.getName());
-		if (fieldRuleMap == null) {
-			fieldRuleMap = ClassHelper.getFieldsAndRules(cls);
-			cacheMap.putIfAbsent(cls.getName(), fieldRuleMap);
-		}
-
+	public ValidateResult validate(Map<String, ?> params,Class<?> cls) {
+		Map<Field, Rules> fieldRuleMap = getRuleMap(cls);
 		for (Map.Entry<Field, Rules> item : fieldRuleMap.entrySet()) {
 			Field itemField = item.getKey();
-			String name = itemField.getName();
 			Rules rules = item.getValue();
 			if(rules == null){
 				continue;
 			}
-			ValidateResult result = processRules(rules, name, params);
+			ValidateResult result = processRules(itemField,rules,params);
 			if(!result.isSuccess()){
 				return result;
 			}

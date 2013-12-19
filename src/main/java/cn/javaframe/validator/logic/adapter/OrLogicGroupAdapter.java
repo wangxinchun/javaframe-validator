@@ -17,7 +17,7 @@ public class OrLogicGroupAdapter extends LogicGroupAdapter {
 		this.list = list;
 	}
 	@Override
-	public LogicValidateResult executeLogic(Map<String, String> params) {
+	public LogicValidateResult executeLogic(Map<String, ?> params) {
 		if(list == null || list.size() <= 0){
 			return LogicValidateResult.SUCCESS;
 		}else {

@@ -1,5 +1,6 @@
 package cn.javaframe.validator.service;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import cn.javaframe.validator.EnumConstants.LogicAssembleType;
 import cn.javaframe.validator.EnumConstants.RuleType;
 import cn.javaframe.validator.EnumConstants.TipType;
-import cn.javaframe.validator.IValidateService;
 import cn.javaframe.validator.IValidator;
 import cn.javaframe.validator.annotation.ConclusionRule;
 import cn.javaframe.validator.annotation.ConditionRule;
@@ -29,6 +29,7 @@ import cn.javaframe.validator.logic.adapter.AndLogicGroupAdapter;
 import cn.javaframe.validator.logic.adapter.AtomicLogicGroup;
 import cn.javaframe.validator.logic.adapter.DeduceAtomicLogicGroup;
 import cn.javaframe.validator.logic.adapter.OrLogicGroupAdapter;
+import cn.javaframe.validator.util.ClassHelper;
 import cn.javaframe.validator.validators.ValidatorFactory;
 
 /**
@@ -37,8 +38,10 @@ import cn.javaframe.validator.validators.ValidatorFactory;
  * @author xinchun.wang
  * 
  */
-public abstract class AbstractValidateService implements IValidateService {
+public abstract class AbstractValidateService {
 	protected static final Logger logger= LoggerFactory.getLogger(AbstractValidateService.class);
+	final private static ConcurrentHashMap<String, Map<Field, Rules>> cacheMap = new ConcurrentHashMap<String, Map<Field, Rules>>();
+
 	
 	/**持有Rules到其上所有校验器的缓存。结构：  Rules ->(id,ValidatorVO)的映射*/
 	final private static ConcurrentHashMap<Rules,Map<String,RuleVO> > rulesCacheMap = new ConcurrentHashMap<Rules, Map<String,RuleVO>>();
@@ -53,7 +56,8 @@ public abstract class AbstractValidateService implements IValidateService {
 	 * @param params 依赖参考对象
 	 * @return
 	 */
-	final protected ValidateResult processRules(Rules rules, String name, Map<String, String> params) {
+	final protected ValidateResult processRules(Field field, Rules rules,Map<String,?> params) {
+		String name = field.getName();
 		LogicRule[] logicArr = rules.logicList();
 		if(logicArr == null || logicArr.length <=0 ){
 			return ValidateResult.SUCCESS; //如果没有配置验证逻辑项，默认返回success
@@ -98,7 +102,7 @@ public abstract class AbstractValidateService implements IValidateService {
 				}
 			}
 		}
-		LogicValidateResult result = execute.executeLogic(params);
+		LogicValidateResult result  = execute.executeLogic(params);
 		if(result.isSuccess()){
 			return ValidateResult.SUCCESS;
 		}else{
@@ -188,6 +192,15 @@ public abstract class AbstractValidateService implements IValidateService {
 			ruleMap.put(item.id(), vo);
 		}
 		return ruleMap;
+	}
+	
+	final Map<Field, Rules> getRuleMap(Class<?> cls){
+		Map<Field, Rules> fieldRuleMap = cacheMap.get(cls.getName());
+		if (fieldRuleMap == null) {
+			fieldRuleMap = ClassHelper.getFieldsAndRules(cls);
+			cacheMap.putIfAbsent(cls.getName(), fieldRuleMap);
+		}
+		return fieldRuleMap;
 	}
 	
 }

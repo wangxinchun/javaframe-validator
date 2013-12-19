@@ -30,7 +30,7 @@ public class CustomerValidatorTest {
     	vo.setProperty("weekLimit");
     	vo.setTip("星期设置错误");
     	
-    	Map<String,String> params = new HashMap<String,String>();
+    	Map<String,Object> params = new HashMap<String,Object>();
     	params.put("weekLimit", "1,3,5");
     	ValidateResult result = ValidatorFactory.getLocalValidator("week_day").validate(vo, params);
     	Assert.assertTrue(result.isSuccess());
@@ -42,7 +42,7 @@ public class CustomerValidatorTest {
     	vo.setProperty("weekLimit");
     	vo.setTip("星期设置错误");
     	
-    	Map<String,String> params = new HashMap<String,String>();
+    	Map<String,Object> params = new HashMap<String,Object>();
     	params.put("weekLimit", "1,9,5");
     	ValidateResult result = ValidatorFactory.getLocalValidator("week_day").validate(vo, params);
     	Assert.assertTrue(!result.isSuccess());

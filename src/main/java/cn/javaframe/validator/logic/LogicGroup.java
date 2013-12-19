@@ -16,6 +16,6 @@ public interface LogicGroup {
 	 * @param params
 	 * @return
 	 */
-	public LogicValidateResult executeLogic(Map<String, String> params);
+	public LogicValidateResult executeLogic(Map<String, ?> params);
 
 }

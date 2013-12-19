@@ -19,7 +19,7 @@ import cn.javaframe.validator.exception.ValidatorConfigException;
 public class ValuesLimitValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
 
 		String ruleValue = validator.getRule();
 		if (StringUtils.isEmpty(ruleValue)) {
@@ -27,7 +27,7 @@ public class ValuesLimitValidator extends AbstractValidator {
 		}
 		try {
 			String[] limitArr = ruleValue.split(",");
-			String paramValue = params.get(validator.getProperty());
+			String paramValue = params.get(validator.getProperty()).toString();
 			for (String item : limitArr) {
 				if (item.equals(paramValue)) {
 					return ValidateResult.SUCCESS;

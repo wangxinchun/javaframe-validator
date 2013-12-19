@@ -18,6 +18,6 @@ public interface IValidator {
 	 * @param params 待校验的参数集合
 	 * @return 返回此验证结果
 	 */
-	public ValidateResult validate(RuleVO validator, Map<String, String> params);
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params);
 
 }

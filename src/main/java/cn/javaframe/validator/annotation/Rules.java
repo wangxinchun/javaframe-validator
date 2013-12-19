@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import cn.javaframe.validator.EnumConstants.LogicAssembleType;
+import cn.javaframe.validator.EnumConstants.TargetType;
 
 /**
  * 验证规则集
@@ -16,9 +17,12 @@ import cn.javaframe.validator.EnumConstants.LogicAssembleType;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Rules {
 
+	/** 字段的属性 是否是复杂属性*/
+	TargetType targetType () default TargetType.simple;
+	
 	/**
 	 * 结论规则集合 */
-	ConclusionRule[] conclusionList();
+	ConclusionRule[] conclusionList() default {};
 	
 	/**
 	 * 条件规则集合 */

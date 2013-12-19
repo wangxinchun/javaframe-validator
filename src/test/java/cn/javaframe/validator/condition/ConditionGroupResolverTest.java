@@ -40,4 +40,9 @@ public class ConditionGroupResolverTest {
 	}
 	
 
+	@Test
+	public void test1(){
+		int[] i = new int[10];
+		System.out.print(i.getClass().isArray());
+	}
 }

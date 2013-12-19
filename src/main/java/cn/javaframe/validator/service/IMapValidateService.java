@@ -1,4 +1,4 @@
-package cn.javaframe.validator;
+package cn.javaframe.validator.service;
 
 import java.util.Map;
 
@@ -9,11 +9,11 @@ import cn.javaframe.validator.bean.ValidateResult;
  * @author xinchun.wang
  *
  */
-public interface IValidateService {
+public interface IMapValidateService {
 	/**
 	 * 校验params中的参数以及对应的值是否有效
 	 * @param params
 	 * @return
 	 */
-	ValidateResult validate(Map<String, String> params,Class<?> cls);
+	ValidateResult validate(Map<String, ?> params,Class<?> cls);
 }

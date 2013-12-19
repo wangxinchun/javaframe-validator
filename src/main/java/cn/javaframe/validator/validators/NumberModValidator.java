@@ -15,7 +15,7 @@ import cn.javaframe.validator.exception.ValidatorConfigException;
 public class NumberModValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
 			String ruleValue = validator.getRule();
 			String[] ruleValueArr = ruleValue.split(",");
 			if(ruleValueArr == null || ruleValueArr.length != 2){
@@ -24,7 +24,7 @@ public class NumberModValidator extends AbstractValidator {
 			try{
 				int toDivide = Integer.parseInt(ruleValueArr[0]);
 				int resultDivide = Integer.parseInt(ruleValueArr[1]);
-				double doubleVal = Double.parseDouble(params.get(validator.getProperty()));
+				double doubleVal = Double.parseDouble(params.get(validator.getProperty()).toString());
 				boolean result = doubleVal % toDivide == resultDivide;
 				if (result) {
 					return ValidateResult.SUCCESS;

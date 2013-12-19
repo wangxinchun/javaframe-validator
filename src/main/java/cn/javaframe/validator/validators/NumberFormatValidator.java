@@ -13,8 +13,8 @@ import cn.javaframe.validator.bean.RuleVO;
 public class NumberFormatValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
-			String value = params.get(validator.getProperty());
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
+			String value = params.get(validator.getProperty()).toString();
 			try{
 				String type = validator.getRule();
 				if(type.equals("int")){

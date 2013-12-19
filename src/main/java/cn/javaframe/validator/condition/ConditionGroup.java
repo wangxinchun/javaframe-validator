@@ -16,6 +16,6 @@ public interface ConditionGroup {
 	 * @param params
 	 * @return
 	 */
-	public ValidateResult executeCondition(Map<String, String> params);
+	public ValidateResult executeCondition(Map<String, ?> params);
 
 }

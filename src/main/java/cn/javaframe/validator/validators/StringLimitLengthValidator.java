@@ -27,7 +27,7 @@ import cn.javaframe.validator.exception.ValidatorConfigException;
 public class StringLimitLengthValidator extends AbstractValidator {
 
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
 		if(validator.getRule() == null){
 			throw new ValidatorConfigException("StringLimitLengthValidator value 配置错误 ,必须以[,( 开头,以),] 结尾 ");
 		}
@@ -52,7 +52,7 @@ public class StringLimitLengthValidator extends AbstractValidator {
 			veryBigFlag = true;
 		}
 		
-		int paramValueLength = StringUtils.length(params.get(validator.getProperty()));
+		int paramValueLength = StringUtils.length(params.get(validator.getProperty()).toString());
 		//[a,b] ,(a,b),[a,b),=(a,b]
 		if(veryLittleFlag == false && veryBigFlag == false) {
 			String[] limitArr = ruleValue.split(",");

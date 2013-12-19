@@ -27,13 +27,13 @@ public class PolicyWeekDaysValidator extends AbstractValidator {
 	}
 
 	@Override
-	public ValidateResult validate(RuleVO validator, Map<String, String> params) {
-		String value = params.get(validator.getProperty());
-		if (StringUtils.isEmpty(value) || value.startsWith(",") || value.endsWith(",")) {
+	public ValidateResult validate(RuleVO validator, Map<String, ?> params) {
+		Object value = params.get(validator.getProperty());
+		if (value== null || StringUtils.isEmpty(value.toString()) || value.toString().startsWith(",") || value.toString().endsWith(",")) {
 			return ValidateResult.errorInstance(validator.getTip());
 		} else {
 			try{
-				String[] valueArr = value.split(",");
+				String[] valueArr = value.toString().split(",");
 				Set<Integer> rememberSet = new HashSet<Integer>(8);
 				for (String item : valueArr) {
 					if (!weekdaySet.contains(item)) { //如果不包含，报错
