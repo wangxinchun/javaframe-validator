@@ -48,7 +48,7 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 	            if(obj != null){
 	            	if(obj.getClass().isArray()) {
 	            		return doArrayValidator(obj);
-	            	} else if(obj.getClass().isAssignableFrom(Collection.class)){
+	            	} else if(obj instanceof Collection){
 	            		return doCollectionValidator((Collection<?>)obj);
 	            	} else{
 	            		return doValidate(obj);
