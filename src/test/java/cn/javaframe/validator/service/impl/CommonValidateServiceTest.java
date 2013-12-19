@@ -1,5 +1,6 @@
 package cn.javaframe.validator.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,8 +71,8 @@ public class CommonValidateServiceTest {
 		BeanValidateService service = new BeanValidateService();
 		UserCard userCard = new UserCard();
 		userCard.setCardID("41272519880673829X");
-		userCard.setCreateDate(DateUtils.parseDate("2013-12-09", new String[]{"yyyy-MM-dd"}));
-		userCard.setEndDate(DateUtils.parseDate("2013-12-19", new String[]{"yyyy-MM-dd"}));
+		userCard.setCreateDate(DateUtils.parseDate("2015-12-09", new String[]{"yyyy-MM-dd"}));
+		userCard.setEndDate(new Date(System.currentTimeMillis()+(long)(1000*60*60*24)));
 		ValidateResult result = service.validate(userCard);
 		println(result);
 		//Assert.assertEquals(result.isSuccess(), false);
@@ -85,7 +86,7 @@ public class CommonValidateServiceTest {
 		UserCard userCard = new UserCard();
 		userCard.setCardID("41272519880673829X");
 		userCard.setCreateDate(DateUtils.parseDate("2013-12-09", new String[]{"yyyy-MM-dd"}));
-		userCard.setEndDate(DateUtils.parseDate("2013-12-20", new String[]{"yyyy-MM-dd"}));
+		userCard.setEndDate(DateUtils.parseDate("2013-12-21", new String[]{"yyyy-MM-dd"}));
 		user.setUserCard(userCard);
 		ValidateResult result = service.validate(user);
 		println(result);
