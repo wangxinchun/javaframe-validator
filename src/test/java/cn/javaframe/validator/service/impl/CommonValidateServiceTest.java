@@ -68,7 +68,7 @@ public class CommonValidateServiceTest {
 		UserCard userCard = new UserCard();
 		userCard.setCardID("41272519880673829X");
 		userCard.setCreateDate(DateUtils.parseDate("2013-12-09", new String[]{"yyyy-MM-dd"}));
-		userCard.setEndDate(DateUtils.parseDate("2013-12-08", new String[]{"yyyy-MM-dd"}));
+		userCard.setEndDate(DateUtils.parseDate("2013-12-19", new String[]{"yyyy-MM-dd"}));
 		ValidateResult result = service.validate(userCard);
 		println(result);
 		//Assert.assertEquals(result.isSuccess(), false);
@@ -82,7 +82,7 @@ public class CommonValidateServiceTest {
 		UserCard userCard = new UserCard();
 		userCard.setCardID("41272519880673829X");
 		userCard.setCreateDate(DateUtils.parseDate("2013-12-09", new String[]{"yyyy-MM-dd"}));
-		userCard.setEndDate(DateUtils.parseDate("2013-12-08", new String[]{"yyyy-MM-dd"}));
+		userCard.setEndDate(DateUtils.parseDate("2013-12-20", new String[]{"yyyy-MM-dd"}));
 		user.setUserCard(userCard);
 		ValidateResult result = service.validate(user);
 		println(result);
