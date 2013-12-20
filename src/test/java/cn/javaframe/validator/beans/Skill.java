@@ -13,7 +13,7 @@ import cn.javaframe.validator.annotation.TargetBean;
 
 @TargetBean
 public class Skill  implements ConvertMapAble{
-	
+
 	@Rules(
 			conclusionList = {
 					@ConclusionRule(id = "A",type = RuleType.not_empty,tip = "不能为空")
