@@ -2,9 +2,7 @@ package cn.javaframe.validator.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -17,7 +15,6 @@ import cn.javaframe.validator.beans.Skill;
 import cn.javaframe.validator.beans.User;
 import cn.javaframe.validator.beans.UserCard;
 import cn.javaframe.validator.service.BeanValidateService;
-import cn.javaframe.validator.service.MapValidateService;
 
 /**
  * Test Case
@@ -25,38 +22,6 @@ import cn.javaframe.validator.service.MapValidateService;
  * @date 2013-12-19下午8:18:56
  */
 public class CommonValidateServiceTest {
-	@Test
-	public void testValidate() {
-		MapValidateService service = new MapValidateService();
-		Map<String,String> params = new HashMap<String,String>();
-		params.put("cardID", "12345678901234d");
-		ValidateResult result = service.validate(params, UserCard.class);
-		System.out.println(result.isSuccess());
-		System.out.println(result.getMessage());
-	}
-	
-	
-	
-	@Test
-	public void testValidateDate() {
-		MapValidateService service = new MapValidateService();
-		Map<String,String> params = new HashMap<String,String>();
-		params.put("begin", "2013-12-09");
-		params.put("end", "2013-12-08");
-		ValidateResult result = service.validate(params, DateVO.class);
-		Assert.assertEquals(result.isSuccess(), false);
-	}
-	
-	@Test
-	public void testValidateDate2() {
-		MapValidateService service = new MapValidateService();
-		Map<String,String> params = new HashMap<String,String>();
-		params.put("begin", "2013-12-09");
-		params.put("end", "2013-12-10");
-		ValidateResult result = service.validate(params, DateVO.class);
-		Assert.assertEquals(result.isSuccess(), true);
-	}
-
 	@Test
 	public void testValidateDate3() {
 		BeanValidateService service = new BeanValidateService();
