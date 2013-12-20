@@ -10,6 +10,7 @@ import cn.javaframe.validator.EnumConstants.TargetType;
 import cn.javaframe.validator.annotation.Rules;
 import cn.javaframe.validator.annotation.TargetBean;
 import cn.javaframe.validator.bean.ValidateResult;
+import cn.javaframe.validator.util.BeanHelper;
 
 /**
  * 对象通用验证器 <br>
@@ -70,6 +71,8 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 				logicParams =  (Map<String, ?>)bean;
 			} else if(bean instanceof ConvertMapAble)  {
 				logicParams = ((ConvertMapAble)bean).toMap();
+			} else {
+				logicParams = BeanHelper.bean2Map(bean);
 			}
 			ValidateResult result = processRules(itemField,rules,logicParams);
 			if(!result.isSuccess()){
