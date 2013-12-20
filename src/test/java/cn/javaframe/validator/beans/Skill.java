@@ -39,7 +39,7 @@ public class Skill  implements ConvertMapAble{
 	@Rules(
 			conclusionList = {
 					@ConclusionRule(id = "A",type = RuleType.empty, tip = "为空"),
-					@ConclusionRule(id = "B",type = RuleType.string_length_limit,value = "[10,500]",tip = "必须在10到500个字符直接"),
+					@ConclusionRule(id = "B",type = RuleType.string_length_limit,value = "[10,500]",tip = "必须在10到500个字符之间"),
 			},
 			logicList = {
 					@LogicRule(conclusion = "A||B",successNextStep = NextStepType.returnSuccess)
