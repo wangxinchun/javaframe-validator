@@ -73,8 +73,8 @@ public class CommonValidateServiceTest {
 		BeanValidateService service = new BeanValidateService();
 		Skill skill = new Skill();
 		skill.setName("java");
-		skill.setUseYear(40);
-		skill.setNote("I love Java");
+		skill.setUseYear(20);
+		skill.setNote("I love");
 		ValidateResult result = service.validate(skill);
 		println(result);
 		Assert.assertEquals(result.isSuccess(), false);
@@ -114,7 +114,7 @@ public class CommonValidateServiceTest {
 		skill = new Skill();
 		skill.setName("C#");
 		skill.setUseYear(30);
-		skill.setNote("");
+		skill.setNote("dg");
 		list.add(skill);
 		
 		user.setList(list);
