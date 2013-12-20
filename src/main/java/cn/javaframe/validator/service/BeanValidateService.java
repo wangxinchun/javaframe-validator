@@ -27,7 +27,8 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 			throw new RuntimeException("bean 不能为空");
 		}
 		Class<?> cls = bean.getClass();
-		if(cls.getAnnotation(TargetBean.class) == null){
+		// 这个对象必须使用 @TargetBean 注解
+		if(cls.getAnnotation(TargetBean.class) == null) {
 			return ValidateResult.SUCCESS;
 		}
 		Map<Field, Rules> fieldRuleMap = getRuleMap(cls);
@@ -37,6 +38,7 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 			if(rules == null){
 				continue;
 			}
+			//如果当前校验规则是复杂校验规则
 			if(rules.targetType() ==TargetType.complex) {
 				Object obj = null;
 	            try {
@@ -46,13 +48,21 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 					throw new RuntimeException("请检测是否设置"+ itemField.getName() +" get方法", e);
 				}		
 	            if(obj != null){
+	            	ValidateResult result = null;
 	            	if(obj.getClass().isArray()) {
-	            		return doArrayValidator(obj);
+	            		result = doArrayValidator(obj);
 	            	} else if(obj instanceof Collection){
-	            		return doCollectionValidator((Collection<?>)obj);
+	            		result = doCollectionValidator((Collection<?>)obj);
 	            	} else{
-	            		return doValidate(obj);
+	            		result = doValidate(obj);
 	            	}
+	            	if(!result.isSuccess()){
+            			return result;
+            		} else{
+            			continue;
+            		}
+	            }else{
+	            	continue;
 	            }
 			}
 			Map<String,?> logicParams = null;
