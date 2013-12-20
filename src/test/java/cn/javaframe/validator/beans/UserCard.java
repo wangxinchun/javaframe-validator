@@ -17,6 +17,12 @@ import cn.javaframe.validator.annotation.TargetBean;
  * 身份证信息
  * @author wangxinchun1988@163.com
  * @date 2013-12-18下午3:53:06
+ * 
+ * 
+ * * 1、createDate 可以为空，endDate 也可以为空，如果不为空，那么他们必须是yyyy-MM-dd的时间格式
+ *   2、如果endDate不为空，那么endDate的时间必须大于当前时间
+ *   3、如果createDate不为空，并且endDate不为空，endDate 必须大于createDate的时间
+ *   4、cardID身份证号，不能为空，并且长度必须为14 或者 18 个字符
  */
 @TargetBean
 public class UserCard implements ConvertMapAble{
