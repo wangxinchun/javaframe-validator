@@ -114,7 +114,7 @@ public class CommonValidateServiceTest {
 		skill = new Skill();
 		skill.setName("C#");
 		skill.setUseYear(30);
-		skill.setNote("dg");
+		skill.setNote("I love Java");
 		list.add(skill);
 		
 		user.setList(list);
