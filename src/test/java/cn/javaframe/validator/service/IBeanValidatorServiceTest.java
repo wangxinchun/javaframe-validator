@@ -45,7 +45,7 @@ public class IBeanValidatorServiceTest {
 		BeanValidateService service = new BeanValidateService();
 		DateVO vo = new DateVO();
 		vo.setBegin("2014-12-14");
-		vo.setEnd("2014-12-15");
+		vo.setEnd("2014-12-13");
 		ValidateResult result = service.validate(vo);
 		println(result);
 		Assert.assertEquals(result.isSuccess(), true);
