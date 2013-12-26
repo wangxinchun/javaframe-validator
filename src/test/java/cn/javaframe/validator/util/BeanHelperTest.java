@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import cn.javaframe.validator.beans.Skill;
 
+/**
+ * BeanHelper test case
+ * @author wangxinchun1988@163.com
+ * @date 2013-12-26下午8:45:37
+ */
 public class BeanHelperTest {
 
 	@Test
@@ -18,7 +23,7 @@ public class BeanHelperTest {
 		skill.setNote("java is a popular language !");
 		Map<String, ?> beanMap = BeanHelper.bean2Map(skill);
 		long l = System.currentTimeMillis();
-		for(int i=0;i<10000000;i++){
+		for(int i=0;i<300000;i++){
 			beanMap = BeanHelper.bean2Map(skill);
 		}
 		System.out.println(System.currentTimeMillis() - l);
