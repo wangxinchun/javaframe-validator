@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import cn.javaframe.validator.ConvertMapAble;
 import cn.javaframe.validator.EnumConstants.TargetType;
@@ -20,6 +21,7 @@ import cn.javaframe.validator.util.BeanHelper;
  * 
  */
 public class BeanValidateService extends AbstractValidateService implements IBeanValidatorService {
+	final private static ConcurrentHashMap<Class<?>,Boolean> beanAnnotationMapping = new ConcurrentHashMap<Class<?>,Boolean>();
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -29,7 +31,7 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 		}
 		Class<?> cls = bean.getClass();
 		// 这个对象必须使用 @TargetBean 注解
-		if(cls.getAnnotation(TargetBean.class) == null) {
+		if(checkTargetBean(cls)) {
 			return ValidateResult.SUCCESS;
 		}
 		Map<Field, Rules> fieldRuleMap = getRuleMap(cls);
@@ -80,6 +82,23 @@ public class BeanValidateService extends AbstractValidateService implements IBea
 			}
 		}
 		return ValidateResult.SUCCESS;
+	}
+	
+	
+	private boolean checkTargetBean(Class<?> cls){
+		if(cls == null){
+			return false;
+		}
+		Boolean result = beanAnnotationMapping.get(cls);
+		if(result != null){
+			return result;
+		}
+		if(cls.getAnnotation(TargetBean.class) == null){
+			beanAnnotationMapping.put(cls, false);
+			return false;
+		}
+		beanAnnotationMapping.put(cls, true);
+		return true;
 	}
 	
 	/**
